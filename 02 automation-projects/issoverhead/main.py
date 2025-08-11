@@ -6,8 +6,11 @@ import smtplib
 
 MY_LAT = 51.507351 # Your latitude
 MY_LONG = -0.127758 # Your longitude
-my_email = "vipaschitattri@gmail.com"
-password = "kotp ghtl lckq jpcn"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+my_email = os.getenv("MY_EMAIL")
+password = os.getenv("MY_PASSWORD")
 
 
 response = requests.get(url="http://api.open-notify.org/iss-now.json")

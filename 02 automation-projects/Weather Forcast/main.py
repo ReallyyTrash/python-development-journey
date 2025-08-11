@@ -1,17 +1,17 @@
 import requests
 from twilio.rest import Client
+import os
+from dotenv import load_dotenv
 
-account_sid = 'AC50045f59fab9aa7b861951889d2f940b'
-auth_token = '[787be373797e2f134d76b0054263df07]'
-
-
-
-api_key = "ec9748c809debe9bb8306882a6ee08a3"
+load_dotenv()
+account_sid = os.getenv("ACCOUNT_SID")
+auth_token = os.getenv("AUTH_TOKEN")
+api_key = os.getenv("API_KEY")
 lat = 24.585445
-lon= 73.712479
+lon = 73.712479
 api_call = "https://api.openweathermap.org/data/2.5/forecast"
 
-paramerters= {
+paramerters = {
     "lat": lat,
     "lon": lon,
     "appid": api_key,
@@ -32,7 +32,7 @@ if raining:
     message = client.messages.create(
         from_='+12294583349',
         to='+916350015420',
-        body= "bring umbrella"
+        body="bring umbrella"
     )
 
     print(message.status)

@@ -29,15 +29,15 @@ def start_timer():
     global reps
     reps += 1
     if reps% 8 == 0:
-        countdown(4)
+        countdown(long_break)
         title.config(text= "Well Done")
 
     elif reps %2 == 0:
-        countdown(3)
+        countdown(short_break)
         title.config(text= "Rest")
 
     else:
-        countdown(5)
+        countdown(work)
         title.config(text= "WORK")
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def countdown(count):
@@ -68,7 +68,7 @@ title = Label(text="Timer",fg= "green" , bg=YELLOW, font=(FONT_NAME, 50))
 title.grid(row=0, column=1)
 
 canvas = Canvas(width=202, height= 224, bg=YELLOW, highlightthickness=0)
-image = PhotoImage(file= "tomato.png")
+image = PhotoImage(file= "./tomato.png")
 canvas.create_image(101, 112, image = image)
 timer_text = canvas.create_text(101, 130, text= "00:00", fill= "white", font= (FONT_NAME,35,"bold"))
 canvas.grid(row=1, column=1)

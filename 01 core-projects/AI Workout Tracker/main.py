@@ -1,15 +1,17 @@
+from datetime import datetime
+from dotenv import load_dotenv
 import requests, os
 from datetime import datetime
 
-app_id = "8c47af76"
-api_key = "833aa7ea685034e3960ab4452b700073"
+# Load environment variables from .env file
+load_dotenv()
 
 host_domain = "https://trackapi.nutritionix.com"
 exercise_endpoint = '/v2/natural/exercise'
 url_exercise = f"{host_domain}{exercise_endpoint}"
 
-APP_ID = os.environ["NT_APP_ID"]
-API_KEY = os.environ["NT_API_KEY"]
+APP_ID = os.getenv("NT_APP_ID")
+API_KEY = os.getenv("NT_API_KEY")
 
 headers = {
     "x-app-id": APP_ID,
@@ -26,9 +28,9 @@ response = requests.post(url_exercise, headers=headers, json=parameter)
 result = response.json()
 # print(result)
 
-spreadsheet_endpoint = "https://api.sheety.co/6345ce058d753cb5ab0cc05218250a9d/workoutTracker/sheet1"
-token = "adslkfjadslkgjkjhgkjdfhsg"
-headers = {
+spreadsheet_endpoint = os.getenv("SHEET_ENDPOINT")
+token = os.getenv("SHEET_TOKEN")
+headers_sheet = {
     "Authorization": f"Bearer {token}"
 }
 
@@ -44,5 +46,5 @@ for exercise in result["exercises"]:
             "calories": exercise["nf_calories"]
         }
     }
-    sheet_response = requests.post(spreadsheet_endpoint, json=sheet_inputs, headers= headers)
+    sheet_response = requests.post(spreadsheet_endpoint, json=sheet_inputs, headers=headers_sheet)
     print(sheet_response.json())
